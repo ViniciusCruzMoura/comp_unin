@@ -1,47 +1,70 @@
-import json, datetime, sys, os 
+from decimal import Decimal
 
-#
-# ALUNO: Vinicius Eduardo Carvalho da Cruz de Moura
-# GIT:
-#
+def calc_valor_da_parcela(valor_do_pedido, juros, quantidade_de_parcelas):
+    return round( (valor_do_pedido * ((100+juros)/100) ) / quantidade_de_parcelas , 2 )
 
-"""
-Enunciado: Imagina-se que você é um dos programadores responsáveis pela construção de app de vendas para uma determinada empresa X que aceita cartões de
-crédito. Uma das estratégias de vendas dessa empresa X é cobrar um Juros maior conforme a quantidade de parcelas que o cliente desejar, conforme a listagem
-abaixo:
+def calc_valor_total_da_parcela(valor_da_parcela, quantidade_de_parcelas):
+    return round( valor_da_parcela * quantidade_de_parcelas , 2)
 
-- Se a quantidade de parcelas for menor que 4, o Juros será de 0% (0 / 100);
-- Se a quantidade de parcelas for igual ou maior que 4 e menor que 6, o Juros será de 4% (4 / 100);
-- Se a quantidade de parcelas for igual ou maior que 6 e menor que 9, o Juros será de 8% (8 / 100);
-- Se a quantidade de parcelas for igual ou maior que 9 e menor que 13, o Juros será de 16% (16 / 100);
-- Se a quantidade de parcelas for igual ou maior que 13, o Juros será de 32% (32 / 100)
+def calc_porcentagem_de_juros(quantidade_de_parcelas):
+    if quantidade_de_parcelas < 4:
+        return 0
+    elif quantidade_de_parcelas >= 4 and quantidade_de_parcelas < 6:
+        return 4
+    elif quantidade_de_parcelas >= 6 and quantidade_de_parcelas < 9:
+        return 8
+    elif quantidade_de_parcelas >= 9 and quantidade_de_parcelas < 13:
+        return 16
+    elif quantidade_de_parcelas >= 13:
+        return 32
+    return None
 
-O valor da parcela é calculado da seguinte maneira:
-    valorDaParcela = valorDoPedido∗(1+ juros)/quantidadeParcelas
+def converter_valor_monetario_para_inteiro(valor):
+    return int(Decimal(valor) * 100)
 
-O valor total parcelado é calculado da seguinte maneira:
-    valorTotalParcelado= valorDaParcela∗quantidadeParcelas
-
-Elabore um programa em Python que:
-A. Deve-se implementar o print com o seu nome completo (somente print, não usar input aqui).
-Por exemplo: print(“Bem-vindos a loja do Bruno Kostiuk”) [EXIGÊNCIA DE CÓDIGO 1 de 6];
-B. Deve-se implementar o input do valorDoPedido e da quantidadeParcelas [EXIGÊNCIA DE CÓDIGO 2 de 6];
-C. Deve-se implementar o Juros conforme a enunciado acima (obs.: atente-se as condições de menor, igual e maior) [EXIGÊNCIA DE CÓDIGO 3 de 6];
-D. Deve-se implementar o valorDaParcela e valorTotalParcelado [EXIGÊNCIA DE CÓDIGO 4 de 6];
-E. Deve-se implementar as estruturas if, elif e else (todas elas) [EXIGÊNCIA DE CÓDIGO 5 de 6];
-F. Deve-se inserir comentários relevantes no código [EXIGÊNCIA DE CÓDIGO 6 de 6];
-G. Deve-se apresentar na saída de console uma mensagem com seu nome completo [EXIGÊNCIA DE SAÍDA DE CONSOLE 1 de 2];
-H. Deve-se apresentar na saída de console um parcelamento com Juros (quantidadeParcelas maior ou igual a 4) apresentando o valor da Parcela e o valor Total
-Parcelado [EXIGÊNCIA DE SAÍDA DE CONSOLE 2 de 2]
-
-"""
+def input_numerico(texto):
+    val = None
+    while True:
+        try:
+            val = input(texto)
+            val = str(val).replace(",", ".")
+            val = int(Decimal(val))
+        except Exception:
+            print("Valor invalido, porfavor digite um valor numerico valido!")
+            continue
+        break
+    return val
 
 def main():
-    print("Bem Vindo a Loja do Vinicius Moura")
-    print("Entre com o valor do pedido: 1000.0")
-    print("Entre com a quantidade de parcelas: 14")
-    print("O valor das parcelas é de: R$ 94.29")
-    print("O valor total parcelado é de: R$ 1320.00")
+    # Cobrar um Juros maior conforme a quantidade de parcelas que o
+    # cliente deseja
+
+    # Dados
+    valor_do_pedido = None
+    quantidade_de_parcelas = None
+    juros = None
+    valor_da_parcela = None
+    valor_total_da_parcela = None
+
+    print("Bem Vindo ao Estabelecimento do Vinicius Eduardo Carvalho da Cruz de Moura")
+
+    # Entradas de Valores do Usuario
+    valor_do_pedido = input_numerico("Entre com o valor do pedido:")
+    quantidade_de_parcelas = input_numerico("Entre com a quantidade de parcelas:")
+
+    # Calculo de Juros a Aplicar a Parcela
+    juros = calc_porcentagem_de_juros(quantidade_de_parcelas)
+    valor_da_parcela = calc_valor_da_parcela(valor_do_pedido, juros, quantidade_de_parcelas)
+    valor_total_da_parcela = calc_valor_total_da_parcela(valor_da_parcela, quantidade_de_parcelas)
+
+    # Saida de Valores
+    print("O valor da parcela é de: {0:.2f}".format(valor_da_parcela))
+    print("O valor total parcelado é de: {0:.2f}".format(valor_total_da_parcela))
+
+    #print("Entre com o valor do pedido: 1000.0")
+    #print("Entre com a quantidade de parcelas: 14")
+    #print("O valor das parcelas é de: R$ 94.29")
+    #print("O valor total parcelado é de: R$ 1320.00")
 
 if __name__ == '__main__':
     main()
