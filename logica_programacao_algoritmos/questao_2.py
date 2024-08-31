@@ -36,6 +36,9 @@ def escolher_pedido():
     return {"sabor": None, "tamanho": None}
 
 def main():
+    # Vendas para uma loja que vende Marmitas de Bife Acebolado
+    # ou Filé de Frango
+
     # Dados
     pedidos = []
     sabor = None
