@@ -1,7 +1,3 @@
-def Pedido():
-    sabor: str
-    tamanho: str
-
 def mostrar_cardapio():
     print("""
 ---Cardapio---
@@ -11,6 +7,30 @@ M       | R$ 18.00            | R$ 17.00
 G       | R$ 22.00            | R$ 21.00
 --------------
 """)
+
+def calc_total_a_pagar(pedidos):
+    total_a_pagar = 0
+    valor_do_pedido = 0
+    for pedido in pedidos:
+        if pedido.get("sabor") == "BA":
+            if pedido.get("tamanho") == "P":
+                valor_do_pedido = 1600
+            elif pedido.get("tamanho") == "M":
+                valor_do_pedido = 1800
+            elif pedido.get("tamanho") == "G":
+                valor_do_pedido = 2200
+        elif pedido.get("sabor") == "FF":
+            if pedido.get("tamanho") == "P":
+                valor_do_pedido = 1500
+            elif pedido.get("tamanho") == "M":
+                valor_do_pedido = 1700
+            elif pedido.get("tamanho") == "G":
+                valor_do_pedido = 2100
+        else:
+            valor_do_pedido = 0
+            continue
+        total_a_pagar += valor_do_pedido
+    return total_a_pagar
 
 def escolher_pedido():
     return {"sabor": None, "tamanho": None}
@@ -60,8 +80,8 @@ def main():
         novo_pedido = None
 
     # Todos os Pedidos
-    print("O valor total a pagar:", "R$", "39.00")
-    print("Pedidos:", pedidos)
+    total_a_pagar = calc_total_a_pagar(pedidos)
+    print("O valor total a pagar:", "R$", "{0:.2f}".format(total_a_pagar/100))
 
 if __name__ == '__main__':
     main()
