@@ -36,7 +36,7 @@ def consultar_funcionarios():
     #a. Deve-se perguntar qual opção deseja (1. Consultar Todos / 2. Consultar por Id / 3. Consultar por Setor / 4. Retornar ao menu):
     print("Menu Consultar Funcionario:")
     while not escolha_do_menu:
-            escolha_do_menu= input("""
+        escolha_do_menu= input("""
 Menu Principal:
 1 - Consultar todos os funcionarios
 2 - Consultar funcionario por ID
@@ -55,10 +55,30 @@ Menu Principal:
                 print("salario:", f.get("salario"))
         elif escolha_do_menu == "2":
             #ii. Se Consultar por Id, solicitar ao usuário que informe um id, e apresentar o funcionário específico com todos os seus dados cadastrados;
-            print("2")
+            id_f = None
+            while not id_f:
+                id_f = input("Qual o ID do funcionario para consulta? >>")
+                try:
+                    id_f = int(id_f)
+                except Exception:
+                    print("Valor Invalido!")
+                    id_f = None
+                    continue
+            for f in lista_funcionarios:
+                if f.get("id") == id_f:
+                    print("id:", f.get("id"))
+                    print("nome:", f.get("nome"))
+                    print("setor:", f.get("setor"))
+                    print("salario:", f.get("salario"))
         elif escolha_do_menu == "3":
             #iii. Se Consultar por Setor, solicitar ao usuário que informe o setor, e apresentar o(s) funcionário(s) do setor com todos os seus dados cadastrados;
-            print("3")
+            m_setor = input("Qual o setor do funcionario para consulta? >>")
+            for f in lista_funcionarios:
+                if m_setor in f.get("setor"):
+                    print("id:", f.get("id"))
+                    print("nome:", f.get("nome"))
+                    print("setor:", f.get("setor"))
+                    print("salario:", f.get("salario"))
         else:
             #v. Se Entrar com um valor diferente de 1, 2, 3 ou 4, printar “Opção inválida" e repetir a pergunta D.a.
             print("Opção Invalida!")
@@ -99,7 +119,6 @@ def main():
 
     # Dados
     global id_global
-    global lista_funcionarios
     escolha_do_menu = None
 
     print("Bem Vindo ao Estabelecimento do Vinicius Eduardo Carvalho da Cruz de Moura")
