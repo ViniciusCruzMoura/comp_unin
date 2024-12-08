@@ -47,7 +47,7 @@ rmi:
 compile:
 	docker run -it --rm --network=host --name $(IMAGE_NAME) \
 		-v "$(PWD)":/$(IMAGE_NAME) -w /$(IMAGE_NAME) $(IMAGE_NAME) \
-		sh -c "javac -d bin $(wildcard src/**/*.java)"
+		sh -c "javac -encoding UTF-8 -d bin $(wildcard src/**/*.java)"
 
 # Run the class files
 .PHONY: run

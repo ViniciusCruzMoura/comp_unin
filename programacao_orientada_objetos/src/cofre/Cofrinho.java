@@ -1,31 +1,33 @@
 package cofre;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Cofrinho {
 	
-    //ArrayList<Moedas> listaMoedas = new ArrayList<Moedas>();
-	//ArrayList<Object> listaMoedas = new ArrayList<Object>();
+    ArrayList<Moeda> listaMoedas = new ArrayList<Moeda>();
 
-    public String adicionar() {
-        return "ur mom";
+    public void adicionar(Moeda m) {
+		listaMoedas.add(m);
     }
-	
-    /*
-	public void adicionar(Computador c) {
-		listaComputador.add(c);
+
+	public void remover(Moeda m) {
+		listaMoedas.remove(m);
 	}
-	
-	public void remover(Computador c) {
-		listaComputador.remove(c);
-	}
-	
-	public void listar() {
-		
-		for (Computador c : listaComputador) {
-			System.out.println(c);
+
+	public void listagemMoedas() {
+		for (Moeda m : listaMoedas) {
+            if (m == null) continue;
+            m.info();
 		}
 	}
-    */
+
+	public double totalConvertido() {
+        double tmptotal = 0;
+		for (Moeda m : listaMoedas) {
+            if (m == null) continue;
+            tmptotal += m.converter();
+		}
+        return tmptotal;
+	}
 
 }
