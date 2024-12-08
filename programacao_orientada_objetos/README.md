@@ -1,7 +1,6 @@
 ## Installation
 
 ### Dependencias
-- Linux
 - Makefile
 - Docker
 
